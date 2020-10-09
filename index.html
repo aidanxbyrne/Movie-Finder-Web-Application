@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+        <link rel="stylesheet" href="styles.css">
+
+        <title>Movie Finder</title>
+    </head>
+    <body>
+        <nav class="navigation">
+            <div class="container">
+                <div class="nav-left">
+                    <h2 class="brand">Movie Finder</h2>
+                    <ul class="nav-list">
+                        <li class="nav-list-item active"><a href="#"></a>Home</a></li>
+                        <li class="nav-list-item"><a href="#"></a>Top 100 Movies</a></li>
+                        <li class="nav-list-item"><a href="#"></a>Now Playing</a></li>
+                        <li class="nav-list-item"><a href="#"></a>Upcoming</a></li>
+                    </ul>
+                </div>
+                <div class="nav-right">
+                    <button class="button button-yellow">Hello There</button>
+                </div>
+            </div>
+        </nav>
+
+        <main>
+            <section id="MainSearch">
+                <div class="container">
+                    <div class="main-search">
+                        <h1 class="main-title color-white">Find a Movie</h1>
+                        <div class="search-form">
+                            <form class="" id="submit">
+                                <input type="text" class="search-input" id="search" placeholder="Movie Title or Keyword">
+                                <button class="button search-button" type="submit"><i class="fas fa-search"></i></button>
+                            </form>
+                        </div>
+                        <button class="button button-yellow" id="RandomMovie">Random Movie</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="results">
+                <div class="container">
+                    <div id="result-heading">
+                        <h2 class="color-white text-center">Search results for 'Enola Holmes'</h2>
+                    </div>
+    
+                    <div id="movies" class="movies">
+                        <div class="movie">
+                            <img src="https://image.tmdb.org/t/p/w342//riYInlsq2kf1AWoGm80JQW5dLKp.jpg" alt="Enola Holmes Poster">
+                            <div class="movie-info" data-movieID="${movieID}">
+                                <h3 class="color-white">Enola Holmes</h3>
+                                <p class="color-white">23/09/2020</p>
+                            </div>
+                        </div>
+                    </div>
+    
+                    <div id="single-movie">
+    
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+
+        </footer>
+        
+        <script src="ui.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html>
