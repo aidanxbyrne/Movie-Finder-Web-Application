@@ -12,6 +12,7 @@ const singleMovieElm = document.querySelector('#single-movie');
 
 //EVENT LISTENERS
 searchSubmit.addEventListener('submit', searchMovie);
+movieElm.addEventListener('click', selectMovie);
 
 
 //FUNCTIONS
@@ -92,4 +93,39 @@ function searchMovie(e){
     }
 
     console.log(term);
+}
+
+
+//Select Movie from Search
+function selectMovie(e){
+    //Check if user has clicked on a movie and pull the ID of the target
+    let movieInfo;
+
+    if(e.target.classList.contains('movie-info')){
+        movieInfo = e.target;
+    }
+    else if(e.target.parentElement.classList.contains('movie-info')){
+        movieInfo = e.target.parentElement;
+    }
+    else if(e.target.nextElementSibling.classList.contains('movie-info')){
+        movieInfo = e.target.nextElementSibling;
+    }
+    else{
+        movieInfo = false;
+    }
+
+    if(movieInfo){
+        const movieID = movieInfo.getAttribute('data-movieid');
+
+        getMovieByID(movieID);
+    }
+}
+
+//Get Movie By ID
+function getMovieByID(movieID){
+    fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`)
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    });
 }

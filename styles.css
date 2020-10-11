@@ -13,11 +13,20 @@ h1{
 h2{
     font-size: 28px;
     font-weight: 600;
+    margin: 0;
+    padding: 0;
 }
 
 h3{
     font-size: 16px;
     font-weight: 600;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+h4{
+    font-weight: 500;
     line-height: 20px;
     margin: 0;
     padding: 0;
@@ -190,7 +199,91 @@ p{
     margin-bottom: 3px;
 }
 
+.singleMovieModal{
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: none;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 5;
+}
 
+.singleMoviePopup{
+    display: flex;
+    height: 600px;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.singleMovieImg{
+    width: auto;
+    height: 100%;
+}
+
+.singleMovieImg img{
+    width: auto;
+    height: 100%;
+    border-radius: 8px 0 0 8px;
+}
+
+.singleMovieContent{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 30px;
+}
+
+.singleMovieContent h3{
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+}
+
+.singleMovieContent h4{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 20px;
+    margin: 0;
+    padding: 0;
+}
+
+.singleMovieTags{
+    display: flex;
+}
+
+.movieTag{
+    background-color: #2B2D42;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-right: 5px;
+    align-self: center;
+}
+
+.singleMovieInfo p{
+    font-size: 16px;
+    margin-bottom: 15px;
+}
+
+.singleMovieInfo{
+    margin-bottom: 30px;
+}
+
+.singleMovieInfo button{
+    margin-top: 30px;
+}
+
+.singleMovieInfo:first-child{
+    display: flex;
+    justify-content: space-between;
+}
 
 @media only screen and (max-width: 1200px){
     .container{
