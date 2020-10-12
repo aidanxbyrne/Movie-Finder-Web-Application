@@ -8,12 +8,13 @@ const randomBtn = document.querySelector('#RandomMovie');
 const resultHeading = document.querySelector('#result-heading');
 const movieElm = document.querySelector('#movies');
 const singleMovieElm = document.querySelector('#single-movie');
+const modal = document.querySelector('#single-movie-modal');
+const modalCloseBtn = document.querySelector('#ModalClose')
 
 
 //EVENT LISTENERS
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
-
 
 //FUNCTIONS
 
@@ -63,9 +64,9 @@ function searchMovie(e){
                     let releaseDay = movieDate.substring(8,10);
                     let releaseMonth = movieDate.substring(5, 7);
                     let releaseYear = movieDate.substring(0, 4);
-
                     movieDate = `${releaseDay}/${releaseMonth}/${releaseYear}`;
 
+                    //Add movie to the page
                     movieElm.innerHTML += `
                         <div class="movie">
                             <img src=${moviePoster} alt="${movieTitle} Poster">
@@ -126,6 +127,71 @@ function getMovieByID(movieID){
     fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`)
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+        const movie = data;
+
+        const title = movie.original_title;
+        const poster = movie.poster_path;
+        const date = movie.release_date;
+        const runtime = movie.runtime;
+        const overview = movie.overview;
+        const budget = movie.budget;
+        const language = movie.spoken_languages[0];
+
+        const genres = [];
+        movie.genres.forEach(movie => {
+            genres.push(movie.name);
+        });
+
+        addMovieToPage(title, poster, date, runtime, overview, budget, language, genres);
     });
+}
+
+//Add the movie to the web page
+function addMovieToPage(title, poster, date, runtime, overview, budget, language, genres){
+    const modal = document.querySelector('#single-movie-modal');
+    modal.style.display = 'flex';
+
+    singleMovieElm.innerHTML = `
+        <div class="singleMovieImg">
+            <img src="https://image.tmdb.org/t/p/w342/${poster}">
+        </div>
+        <div class="singleMovieContent">
+            <div class="singleMovieInfo">
+                <div>
+                    <h2>${title}</h2>
+                    <p>${date} | ${runtime}mins</p>
+                </div>
+                <div class="singleMovieTags">
+
+                </div>
+            </div>
+            <div class="singleMovieInfo">
+                <h3>Overview</h3>
+                <p>${overview}</p>
+            </div>
+            <div class="singleMovieInfo">
+                <h4>Director</h4>
+                <p>Guy Ritchie</p>
+                <h4>Language</h4>
+                <p>${language}</p>
+                <h4>Production Budget</h4>
+                <p>$${budget}</p>
+                <button class="button button-yellow">Watch Trailer</button>
+            </div>
+            <button class="button modal-close" id="ModalClose" onClick="closeModal()">X</button>
+        </div> 
+    `;
+
+    genres.forEach(genre => {
+        const tag = document.createElement("small");
+        tag.classList.add('movieTag');
+        tag.innerHTML = genre;
+        document.querySelector('.singleMovieTags').appendChild(tag);
+    });
+}
+
+//Close selected Movie
+function closeModal(){
+    singleMovieElm.innerHTML = '';
+    modal.style.display = 'none';
 }
