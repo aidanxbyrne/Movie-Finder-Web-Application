@@ -16,6 +16,24 @@ const modalCloseBtn = document.querySelector('#ModalClose')
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
 
+//CLASSES
+class Movie{
+    constructor(movie, title, poster, date, runtime, overview, director, budget, language, genres){
+        this.movie = movie;
+        this.title = title;
+        this.poster = poster;
+        this.date = date;
+        this.runtime = runtime;
+        this.overview = overview;
+        this.director = director
+        this.budget = budget;
+        this.language = language;
+        this.genres = [];
+        movie.genres.forEach(movie => {
+            genres.push(movie.name);
+        });
+    }
+}
 //FUNCTIONS
 
 //search movie and fetch from API
@@ -124,30 +142,44 @@ function selectMovie(e){
 
 //Get Movie By ID
 function getMovieByID(movieID){
-    fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`)
-    .then(response => response.json())
-    .then(data => {
-        const movie = data;
-
+    Promise.all([
+        fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${apiKey}`)
+    ]).then(responses => {
+        return Promise.all(responses.map(response => {
+            return response.json();
+        }));
+    }).then(data => {
+        const movie = data[0];
         const title = movie.original_title;
         const poster = movie.poster_path;
         const date = movie.release_date;
         const runtime = movie.runtime;
         const overview = movie.overview;
         const budget = movie.budget;
-        const language = movie.spoken_languages[0];
+        const language = movie.spoken_languages[0].name;
 
         const genres = [];
         movie.genres.forEach(movie => {
             genres.push(movie.name);
         });
 
-        addMovieToPage(title, poster, date, runtime, overview, budget, language, genres);
+        console.log(data[0]);
+
+        //Get director from credits api endpoint
+        let director;
+        data[1].crew.forEach(crew => {
+            if(crew.job === "Director"){
+                director = crew.name;
+            }
+        });
+
+        addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres);
     });
 }
 
 //Add the movie to the web page
-function addMovieToPage(title, poster, date, runtime, overview, budget, language, genres){
+function addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres){
     const modal = document.querySelector('#single-movie-modal');
     modal.style.display = 'flex';
 
@@ -171,7 +203,7 @@ function addMovieToPage(title, poster, date, runtime, overview, budget, language
             </div>
             <div class="singleMovieInfo">
                 <h4>Director</h4>
-                <p>Guy Ritchie</p>
+                <p>${director}</p>
                 <h4>Language</h4>
                 <p>${language}</p>
                 <h4>Production Budget</h4>

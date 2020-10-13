@@ -271,6 +271,7 @@ p{
     border-radius: 4px;
     margin-right: 5px;
     align-self: center;
+    white-space: nowrap;
 }
 
 .singleMovieInfo p{
