@@ -39,6 +39,10 @@ p{
     padding: 0;
 }
 
+a, a:visited{
+    color: white;
+}
+
 .text-center{
     text-align: center;
 }
@@ -298,6 +302,29 @@ p{
     right: 10px;
     padding: 10px 15px;
     background-color: #EDF2F4;
+}
+
+.footer{
+    width: 100%;
+    height: 100px;
+    color: white;
+    background-color: #161722;
+    box-shadow: 0px 2px 10px #1a1a1a70;
+    white-space: nowrap;
+}
+
+.footer .container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.fab{
+    margin-left: 10px;
+}
+
+a:hover{
+    color: #F7B32B;
 }
 
 @media only screen and (max-width: 1200px){

@@ -142,9 +142,11 @@ function selectMovie(e){
 
 //Get Movie By ID
 function getMovieByID(movieID){
+    //Fetch responses from API endpoints
     Promise.all([
         fetch(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${apiKey}`),
-        fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${apiKey}`)
+        fetch(`https://api.themoviedb.org/3/movie/${movieID}/credits?api_key=${apiKey}`),
+        fetch(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${apiKey}`)
     ]).then(responses => {
         return Promise.all(responses.map(response => {
             return response.json();
@@ -152,19 +154,28 @@ function getMovieByID(movieID){
     }).then(data => {
         const movie = data[0];
         const title = movie.original_title;
-        const poster = movie.poster_path;
         const date = movie.release_date;
         const runtime = movie.runtime;
         const overview = movie.overview;
         const budget = movie.budget;
-        const language = movie.spoken_languages[0].name;
+        
+        let poster;
+        if(movie.poster_path != null){
+            poster = `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
+        }
+        else{
+            poster = "assets/images/not-found.jpg";
+        }
+
+        let language 
+        if(movie.spoken_languages.length < 0){
+            language = movie.spoken_languages[0].name;
+        };
 
         const genres = [];
         movie.genres.forEach(movie => {
             genres.push(movie.name);
         });
-
-        console.log(data[0]);
 
         //Get director from credits api endpoint
         let director;
@@ -174,18 +185,36 @@ function getMovieByID(movieID){
             }
         });
 
-        addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres);
+        //Get trailers from videos api endpoint
+        let trailer;
+        if(data[2].results.length < 0){
+            switch(data[2].results[0].site){
+                case "YouTube":
+                    trailer = `https://www.youtube.com/watch?v=${data[2].results[0].key}`;
+                    break;
+                case "Vimeo":
+                    trailer = `https://vimeo.com/${data[2].results[0].key}`;
+                    break;
+                default:
+                    tailer = '#';
+            }
+        }
+
+        addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres,trailer);
     });
 }
 
 //Add the movie to the web page
-function addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres){
+function addMovieToPage(title, poster, date, runtime, overview, director, budget, language, genres,trailer){
+    
+    //Show Modal Overlay
     const modal = document.querySelector('#single-movie-modal');
     modal.style.display = 'flex';
 
+    //Populate Modal with Movie info
     singleMovieElm.innerHTML = `
         <div class="singleMovieImg">
-            <img src="https://image.tmdb.org/t/p/w342/${poster}">
+            <img src="${poster}">
         </div>
         <div class="singleMovieContent">
             <div class="singleMovieInfo">
@@ -208,12 +237,13 @@ function addMovieToPage(title, poster, date, runtime, overview, director, budget
                 <p>${language}</p>
                 <h4>Production Budget</h4>
                 <p>$${budget}</p>
-                <button class="button button-yellow">Watch Trailer</button>
+                <a href="${trailer}" target="_blank"><button class="button button-yellow">Watch Trailer</button></a>
             </div>
             <button class="button modal-close" id="ModalClose" onClick="closeModal()">X</button>
         </div> 
     `;
 
+    //Create a tag for each genre
     genres.forEach(genre => {
         const tag = document.createElement("small");
         tag.classList.add('movieTag');
