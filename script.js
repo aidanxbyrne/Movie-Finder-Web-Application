@@ -11,30 +11,20 @@ const singleMovieElm = document.querySelector('#single-movie');
 const modal = document.querySelector('#single-movie-modal');
 const modalCloseBtn = document.querySelector('#ModalClose')
 
+//CLASSES
+const ui = new UI(resultHeading);
 
 //EVENT LISTENERS
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
 
-//CLASSES
-class Movie{
-    constructor(movie, title, poster, date, runtime, overview, director, budget, language, genres){
-        this.movie = movie;
-        this.title = title;
-        this.poster = poster;
-        this.date = date;
-        this.runtime = runtime;
-        this.overview = overview;
-        this.director = director
-        this.budget = budget;
-        this.language = language;
-        this.genres = [];
-        movie.genres.forEach(movie => {
-            genres.push(movie.name);
-        });
-    }
-}
 //FUNCTIONS
+async function searchMovies(searchTerm){
+    const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
+    const movies = await movieResponse.json();
+
+    return movies
+}
 
 //search movie and fetch from API
 function searchMovie(e){
@@ -48,63 +38,31 @@ function searchMovie(e){
 
     //Check for emput input
     if(term.trim()){
-        //Fetch results from API
-        fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${term}`)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+        searchMovies(term)
+        .then(movies => {
+            //Reduce size of area around search box
+            ui.minimizeSearchArea();
 
-            minimizeSearchArea();
-
-            resultHeading.innerHTML = `<h2 class="color-white text-center">Search results for '${term}'</h2>`;
-
-            //If there is no results
-            if(data.total_results === 0){
-                resultHeading.innerHTML = `<p class="color-white text-center">There are no search results for '${term}'. Please try again.</p>`;
+            //Check for movie results
+            if(movies.total_results === 0){
+                //Show error in heading
+                ui.updateResultHeading('error', term);
             }
             else{
-                data.results.forEach(movie => {
-                    const movieTitle = movie.original_title;
-                    const movieOverview = movie.overview;
-                    const movieID = movie.id;
+                //Update result heading
+                ui.updateResultHeading('',term);
 
-                    //Set Moview Poster
-                    let moviePoster;
-                    if(movie.poster_path != null){
-                        moviePoster = `https://image.tmdb.org/t/p/w342/${movie.poster_path}`;
-                    }
-                    else{
-                        moviePoster = "/assets/images/not-found.jpg";
-                    }
-
-                    //Convert Release Date to Irish Format
-                    let movieDate = movie.release_date;
-                    let releaseDay = movieDate.substring(8,10);
-                    let releaseMonth = movieDate.substring(5, 7);
-                    let releaseYear = movieDate.substring(0, 4);
-                    movieDate = `${releaseDay}/${releaseMonth}/${releaseYear}`;
-
-                    //Add movie to the page
-                    movieElm.innerHTML += `
-                        <div class="movie">
-                            <img src=${moviePoster} alt="${movieTitle} Poster">
-                            <div class="movie-info" data-movieID="${movieID}">
-                                <h3 class="color-white">${movieTitle}</h3>
-                                <p class="color-white">${movieDate}</p>
-                            </div>
-                        </div>
-                    `;
-                });
+                //Create new movie for each response in movies
+                movies.results.forEach(movie => {
+                    console.log(movie);
+                    const moviee = new Movie(movie);
+                    moviee.getMoviePreview();
+                });   
             }
         });
 
-        //Clear Search Term
-        searchInput.value = '';
-
-        //Clear Previous Results
-        if(movieElm.innerHTML !== ''){
-            movieElm.innerHTML = '';
-        }
+        //Clear UI
+        ui.clearUI();
     }
     else{
         //TODO: Convert to an on page alert
