@@ -1,7 +1,12 @@
 
+html{
+}
+
 body{
     font-family: 'Poppins', sans-serif;
     margin: 0;
+    overflow-x: hidden;
+    overscroll-behavior: none;
     background-color: #2B2D42;
 }
 
@@ -337,16 +342,52 @@ a:hover{
     .container{
         width: 720px;
     }
+
+    .movies{   
+        padding: 0px 10px;
+        grid-template-columns: repeat(auto-fill, 22%);
+    }
+
+    .movie img{
+        width: 100%;
+        height: auto;
+        border-radius: 5px 5px 0 0;
+    }
 } 
 
 @media only screen and (max-width: 768px){
     .container{
-        width: 540px;
+        width: 100%;
+    }
+
+    .nav-list, .nav-right{
+        display: none;
+    }
+
+    #results{
+        width: 100%;
+        margin: auto;
+    }
+
+    .movies{   
+        grid-template-columns: repeat(auto-fill, 32%);
     }
 } 
 
 @media only screen and (max-width: 576px){
     .container{
         width: 100%;
+    }
+
+    .search-input{
+       max-width: 70%;
+    }
+
+    .movies{
+        padding: 0px 10px;
+    }
+
+    .movie{
+        margin-bottom: 10px;
     }
 } 
