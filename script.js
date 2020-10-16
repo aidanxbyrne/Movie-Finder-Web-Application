@@ -9,7 +9,8 @@ const resultHeading = document.querySelector('#result-heading');
 const movieElm = document.querySelector('#movies');
 const singleMovieElm = document.querySelector('#single-movie');
 const modal = document.querySelector('#single-movie-modal');
-const modalCloseBtn = document.querySelector('#ModalClose')
+const modalCloseBtn = document.querySelector('#ModalClose');
+const navMenu = document.querySelector('.nav-icon');
 
 //CLASSES
 const ui = new UI();
@@ -18,8 +19,19 @@ const movie = new Movie();
 //EVENT LISTENERS
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
+navMenu.addEventListener('click', triggerNavMenu);
 
 //FUNCTIONS
+
+function triggerNavMenu(){
+    if(document.getElementsByClassName('nav-list')[0].style.display === "" || document.getElementsByClassName('nav-list')[0].style.display === "none"){
+        document.getElementsByClassName('nav-list')[0].style.display = "flex"
+    }
+    else{
+        document.getElementsByClassName('nav-list')[0].style.display = "none"
+    }
+}
+
 async function searchMovies(searchTerm){
     const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
     const movies = await movieResponse.json();

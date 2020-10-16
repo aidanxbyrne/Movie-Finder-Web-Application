@@ -1,6 +1,4 @@
 
-html{
-}
 
 body{
     font-family: 'Poppins', sans-serif;
@@ -91,9 +89,10 @@ a, a:visited{
 }
 
 .nav-list{
-    list-style-type: none;
-    display: flex;
     height: 100%;
+    display: flex;
+    align-self: center;
+    list-style-type: none;
 }
 
 .nav-list-item{
@@ -112,6 +111,10 @@ a, a:visited{
 .nav-list-item:hover{
     cursor: pointer;
     background-color: #484C6E;
+}
+
+.nav-right i{
+    display: none;
 }
 
 .button{
@@ -360,10 +363,66 @@ a:hover{
         width: 100%;
     }
 
-    .nav-list, .nav-right{
+    .navigation{
+        width: 100%;
+        position: relative;
+    }
+
+    .nav-left{
+        position: relative;
+        padding-left: 10px;
+    }
+
+    .nav-right{
+        display: flex;
+    }
+
+    .nav-icon{
+        background-color: tomato;
+        height: 100%;
+        width: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 5;
+    }
+
+    .nav-icon:hover{
+        cursor: pointer;
+    }
+
+    .nav-right button{
         display: none;
     }
 
+    .nav-right i{
+        display: flex;
+    }
+
+    .fa-bars:hover{
+        cursor: pointer;
+    }
+
+    .nav-list{
+        width: 100%;
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        align-items: center;
+        padding: 0;
+    }
+
+    .nav-list-item{
+        width: 100%;
+        padding: 25px 0px;
+        background-color: #161722;
+        justify-content: center;
+    }
+
+    .nav-list-item:first-child{
+        margin-top: 75px;
+    }
+    
     #results{
         width: 100%;
         margin: auto;
