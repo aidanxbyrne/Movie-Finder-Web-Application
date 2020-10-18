@@ -45,7 +45,7 @@ class UI{
                 <img src="${movie.poster}">
             </div>
             <div class="singleMovieContent">
-                <div class="singleMovieInfo">
+                <div class="singleMovieInfo singleMovieHead">
                     <div>
                         <h2>${movie.title}</h2>
                         <p>${movie.date} | ${movie.runtime}mins</p>

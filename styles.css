@@ -258,6 +258,7 @@ a, a:visited{
     position: relative;
     flex-direction: column;
     justify-content: flex-start;
+    width: 100%;
     height: 100%;
     overflow: scroll;
     padding: 30px;
@@ -277,6 +278,11 @@ a, a:visited{
     line-height: 20px;
     margin: 0;
     padding: 0;
+}
+
+.singleMovieHead{
+    display: flex;
+    justify-content: space-between;
 }
 
 .singleMovieTags{

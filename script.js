@@ -118,6 +118,7 @@ async function openRandomMovie(){
         const randomMovie = await movie.getMovieFull(randomID);
         ui.openMovieModal(randomMovie);
     } catch {
+        //If movie of random ID cannot be found, retry the function
         openRandomMovie();
     }
 }
