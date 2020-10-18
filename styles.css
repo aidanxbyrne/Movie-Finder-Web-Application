@@ -72,7 +72,6 @@ a, a:visited{
 
 .navigation .container{
     display: flex;
-    justify-content: space-between;
 }
 
 .nav-left, .nav-right{
@@ -81,11 +80,13 @@ a, a:visited{
     align-items: center;
 }
 
+.nav-right{
+    margin-left: auto;
+}
+
 .brand{
     font-size: 24px;
     font-weight: 600;
-    margin: 0;
-    padding: 0;
 }
 
 .nav-list{
@@ -93,6 +94,8 @@ a, a:visited{
     display: flex;
     align-self: center;
     list-style-type: none;
+    margin: 0 30px;
+    padding: 0;
 }
 
 .nav-list-item{
@@ -439,7 +442,7 @@ a:hover{
         position: absolute;
         flex-direction: column;
         align-items: center;
-        padding: 0;
+        margin: 0;
     }
 
     .nav-list-item{

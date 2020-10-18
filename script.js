@@ -110,20 +110,14 @@ function selectMovie(e){
     }
 }
 
-function openRandomMovie(){
-    //Get random ID between 1 and most recent ID in database
-    movie.getRandomMovie()
-    .then(randomID => {
-        //Get full movie information of random ID
-        movie.getMovieFull(randomID)
-        .then(randomMovie => {
-            //Create UI Modal of movie with random ID
-            ui.openMovieModal(randomMovie);
-        })
-        .catch(() =>{
-            //If movie with random ID is not found. Most likely deleted from database
-            console.log(`Movie of ID '${randomID}' cannot be found`);
-            ui.updateResultHeading('error', randomID);
-        })
-    })
+async function openRandomMovie(){
+    //Get random ID between 1 and most recent movie ID in database
+    const randomID = await movie.getRandomMovie();
+
+    try {
+        const randomMovie = await movie.getMovieFull(randomID);
+        ui.openMovieModal(randomMovie);
+    } catch {
+        openRandomMovie();
+    }
 }
