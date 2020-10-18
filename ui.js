@@ -67,8 +67,8 @@ class UI{
                     <p>$${movie.budget}</p>
                     <a href="${movie.trailer}" target="_blank"><button class="button button-yellow">Watch Trailer</button></a>
                 </div>
-                <button class="button modal-close" id="ModalClose" onClick="ui.closeModal()">X</button>
-            </div> 
+            </div>
+            <button class="button modal-close" id="ModalClose" onClick="ui.closeModal()">X</button> 
         `;
 
         //Create a tag for each genre
@@ -79,12 +79,18 @@ class UI{
             document.querySelector('.singleMovieTags').appendChild(tag);
         });
 
+        //Prevent scroll on body while modal is open
+        document.body.style.overflow ='hidden';
+
     }
 
     //Close selected Movie
     closeModal(){
         singleMovieElm.innerHTML = '';
         modal.style.display = 'none';
+
+        //Enable scroll on body while modal is closed
+        document.body.style.overflow ='auto';
     }
 
     clearUI(){

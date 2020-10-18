@@ -231,10 +231,12 @@ a, a:visited{
 }
 
 .singleMoviePopup{
+    position: relative;
     display: flex;
     height: 600px;
     background-color: white;
     border-radius: 8px;
+    overflow: hidden;
 }
 
 .singleMovieImg{
@@ -252,8 +254,10 @@ a, a:visited{
     display: flex;
     position: relative;
     flex-direction: column;
-    justify-content: center;
-    padding: 0 30px;
+    justify-content: flex-start;
+    height: 100%;
+    overflow: scroll;
+    padding: 30px;
 }
 
 .singleMovieContent h3{
@@ -339,6 +343,15 @@ a:hover{
     .container{
         width: 960px;
     }
+
+    .singleMovieTags{
+        flex-wrap: wrap;
+        align-self: center;
+    }
+    
+    .movieTag{
+        margin-top: 5px;
+    }
 }
 
 @media only screen and (max-width: 992px){
@@ -356,6 +369,24 @@ a:hover{
         height: auto;
         border-radius: 5px 5px 0 0;
     }
+
+    .singleMovieImg{
+        width: 100%;
+    }
+    .singleMovieImg img {
+        width: 100%;
+        height: auto;
+    }
+
+    .singleMovieInfo{
+        flex-direction: column;
+    }
+
+    .singleMovieTags{
+        align-self: flex-start;
+    }
+    
+
 } 
 
 @media only screen and (max-width: 768px){
@@ -370,7 +401,7 @@ a:hover{
 
     .nav-left{
         position: relative;
-        padding-left: 10px;
+        padding-left: 20px;
     }
 
     .nav-right{
@@ -378,7 +409,6 @@ a:hover{
     }
 
     .nav-icon{
-        background-color: tomato;
         height: 100%;
         width: 75px;
         display: flex;
@@ -430,6 +460,29 @@ a:hover{
 
     .movies{   
         grid-template-columns: repeat(auto-fill, 32%);
+    }
+
+    .singleMoviePopup{
+        flex-direction: column;
+        height: auto;
+        margin: 0 20px;
+    }
+
+    .singleMovieImg{
+        display: flex;
+        width: 50%;
+        align-self: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .singleMovieImg img{
+        border-radius: 0;
+    }
+
+    .singleMovieInfo{
+        align-self: center;
+        text-align: center;
     }
 } 
 

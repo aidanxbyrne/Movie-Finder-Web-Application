@@ -102,4 +102,16 @@ class Movie{
             trailer: this.getTrailer(video)
         }
     }
+
+    async getRandomMovie(){
+        //Get ID of most recent movie in database
+        const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/latest?api_key=${apiKey}`);
+        const latest = await movieResponse.json();
+        const latestID = latest.id; 
+
+        const randomID = Math.floor(Math.random() * `${latestID}`) + 1;
+
+        return randomID;
+    }
+    
 }

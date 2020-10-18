@@ -20,6 +20,7 @@ const movie = new Movie();
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
 navMenu.addEventListener('click', triggerNavMenu);
+randomBtn.addEventListener('click', openRandomMovie);
 
 //FUNCTIONS
 
@@ -107,4 +108,15 @@ function selectMovie(e){
             ui.openMovieModal(movie);
         })
     }
+}
+
+function openRandomMovie(){
+    const randomID = movie.getRandomMovie()
+    .then(randomID => {
+
+    movie.getMovieFull(randomID)
+    .then(movie => {
+        ui.openMovieModal(movie);
+    })
+    })
 }
