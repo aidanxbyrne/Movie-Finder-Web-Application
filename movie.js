@@ -109,6 +109,7 @@ class Movie{
         const latest = await movieResponse.json();
         const latestID = latest.id; 
 
+        //Find random ID between 1 and ID of most recent movie
         const randomID = Math.floor(Math.random() * `${latestID}`) + 1;
 
         return randomID;
