@@ -65,7 +65,7 @@ class UI{
                     <p>${movie.language}</p>
                     <h4>Production Budget</h4>
                     <p>$${movie.budget}</p>
-                    <a href="${movie.trailer}" target="_blank"><button class="button button-yellow">Watch Trailer</button></a>
+                    <button class="button button-yellow" id="trailerButton" onClick="ui.openTrailer('${movie.trailer}')">Watch Trailer</button>
                 </div>
             </div>
             <button class="button modal-close" id="ModalClose" onClick="ui.closeModal()">X</button> 
@@ -79,9 +79,17 @@ class UI{
             document.querySelector('.singleMovieTags').appendChild(tag);
         });
 
+        //Remove trailer button if no trailer exists
+        if(movie.trailer === null || movie.trailer === ''){
+            document.getElementById('trailerButton').remove();
+        }
+        
         //Prevent scroll on body while modal is open
         document.body.style.overflow ='hidden';
+    }
 
+    openTrailer(trailer){
+        window.open(trailer);
     }
 
     //Close selected Movie

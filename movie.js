@@ -61,11 +61,11 @@ class Movie{
                     trailer = `https://vimeo.com/${videoResults[0].key}`;
                     break;
                 default:
-                    tailer = '#';
+                    tailer = '';
             }
         }
         else{
-            trailer = '#';
+            trailer = '';
         }
 
         return trailer

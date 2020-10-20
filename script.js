@@ -11,6 +11,12 @@ const singleMovieElm = document.querySelector('#single-movie');
 const modal = document.querySelector('#single-movie-modal');
 const modalCloseBtn = document.querySelector('#ModalClose');
 const navMenu = document.querySelector('.nav-icon');
+// const trailerBtn = document.addEventListener('click', (e) => {
+//     if(e.target.id === 'trailerButton'){
+//         const trailerLink = e.target.parentElement.getAttribute('href');
+//         ui.openTailer(trailerLink);
+//     }
+// });
 
 //CLASSES
 const ui = new UI();
