@@ -21,13 +21,18 @@ class UI{
     }
 
     //Create cards for search results that displays the poster, title and release date of each movie in the DOM
-    createResultCards(title, poster, date, movieID){
+    createResultCards(title, poster, date, movieID, rating){
         movieElm.innerHTML += `
         <div class="movie">
             <img src=${poster} alt="${title} Poster">
             <div class="movie-info" data-movieID="${movieID}">
-                <h3 class="color-white">${title}</h3>
-                <p class="color-white">${date}</p>
+                <div class="movie-info-left">
+                    <h3 class="color-white">${title}</h3>
+                    <p class="color-white">${date}</p>
+                </div>
+                <div class="movie-info-right">
+                    <h5 class="color-white">${rating}<h5>
+                </div>
             </div>
         </div>
         `;

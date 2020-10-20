@@ -11,18 +11,13 @@ const singleMovieElm = document.querySelector('#single-movie');
 const modal = document.querySelector('#single-movie-modal');
 const modalCloseBtn = document.querySelector('#ModalClose');
 const navMenu = document.querySelector('.nav-icon');
-// const trailerBtn = document.addEventListener('click', (e) => {
-//     if(e.target.id === 'trailerButton'){
-//         const trailerLink = e.target.parentElement.getAttribute('href');
-//         ui.openTailer(trailerLink);
-//     }
-// });
 
 //CLASSES
 const ui = new UI();
 const movie = new Movie();
 
 //EVENT LISTENERS
+window.addEventListener('DOMContentLoaded', getPage);
 searchSubmit.addEventListener('submit', searchMovie);
 movieElm.addEventListener('click', selectMovie);
 navMenu.addEventListener('click', triggerNavMenu);
@@ -42,7 +37,7 @@ function triggerNavMenu(){
 async function searchMovies(searchTerm){
     const movieResponse = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${searchTerm}`);
     const movies = await movieResponse.json();
-
+    
     return movies
 }
 
@@ -113,6 +108,33 @@ function selectMovie(e){
         .then(movie => {
             ui.openMovieModal(movie);
         })
+    }
+}
+
+function getPage(){
+    if(document.URL.includes("top-100-movies")){
+        getMovieLists('top_rated');
+    }
+    else if(document.URL.includes("now-playing")){
+        getMovieLists('now_playing');
+    }
+    else if(document.URL.includes("upcoming")){
+        getMovieLists('upcoming');
+    }
+}
+
+async function getMovieLists(listType){
+    const movieResponse = await fetch(`https://api.themoviedb.org/3/movie/${listType}?api_key=${apiKey}&language=en-US`);
+    const movies = await movieResponse.json();
+
+    try{
+        //Create new movie for each response in movies
+        movies.results.forEach(mov => {
+            movie.getMoviePreview(mov);
+        });   
+    }
+    catch{
+        console.log('Could not find list');
     }
 }
 

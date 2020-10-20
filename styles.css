@@ -44,6 +44,7 @@ p{
 
 a, a:visited{
     color: white;
+    text-decoration: none;
 }
 
 .text-center{
@@ -212,7 +213,21 @@ a, a:visited{
 }
 
 .movie-info{
+    display: flex;
+    justify-content: space-between;
     padding: 5px 15px 10px 15px;
+}
+
+.movie-info-right{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    height: 30px;
+    min-width: 30px;
+    border: solid 3px;
+    border-color: greenyellow;
+    margin-left: 5px;
 }
 
 .movie-info h3{
@@ -495,6 +510,17 @@ a:hover{
 
     .singleMovieInfo{
         align-self: center;
+        text-align: center;
+    }
+
+    .footer{
+        padding: 20px 0px;
+    }
+
+    .footer .container{
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
         text-align: center;
     }
 } 

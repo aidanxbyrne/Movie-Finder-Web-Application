@@ -75,9 +75,10 @@ class Movie{
         const  title = movie.original_title,
             movieID = movie.id,
             poster = this.setMoviePoster(movie.poster_path),
-            date = this.convertDateFormat(movie.release_date);
+            date = this.convertDateFormat(movie.release_date),
+            rating = movie.vote_average * 10;
 
-        ui.createResultCards(title, poster, date, movieID);
+        ui.createResultCards(title, poster, date, movieID, rating);
     }
 
     async getMovieFull(id){
