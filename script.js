@@ -128,3 +128,7 @@ async function openRandomMovie(){
         openRandomMovie();
     }
 }
+
+function comingSoon(){
+    alert('This feature is coming soon!');
+}
