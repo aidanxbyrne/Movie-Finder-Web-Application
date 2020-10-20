@@ -94,7 +94,7 @@ function selectMovie(e){
     else if(e.target.parentElement.classList.contains('movie-info')){
         movieInfo = e.target.parentElement;
     }
-    else if(e.target.nextElementSibling.classList.contains('movie-info')){
+    else if(e.target.nextElementSibling && e.target.nextElementSibling.classList.contains('movie-info')){
         movieInfo = e.target.nextElementSibling;
     }
     else{
@@ -112,7 +112,7 @@ function selectMovie(e){
 }
 
 function getPage(){
-    if(document.URL.includes("top-100-movies")){
+    if(document.URL.includes("top-movies")){
         getMovieLists('top_rated');
     }
     else if(document.URL.includes("now-playing")){
@@ -128,6 +128,9 @@ async function getMovieLists(listType){
     const movies = await movieResponse.json();
 
     try{
+        //Add Event listener to movies
+        movieElm.addEventListener('click', selectMovie);
+
         //Create new movie for each response in movies
         movies.results.forEach(mov => {
             movie.getMoviePreview(mov);

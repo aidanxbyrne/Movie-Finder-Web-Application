@@ -226,7 +226,6 @@ a, a:visited{
     height: 30px;
     min-width: 30px;
     border: solid 3px;
-    border-color: greenyellow;
     margin-left: 5px;
 }
 
@@ -273,9 +272,9 @@ a, a:visited{
     position: relative;
     flex-direction: column;
     justify-content: flex-start;
-    width: auto;
+    width: 100%;
     height: auto;
-    overflow: scroll;
+    overflow-y: auto;
     padding: 30px;
 }
 

@@ -30,7 +30,7 @@ class UI{
                     <h3 class="color-white">${title}</h3>
                     <p class="color-white">${date}</p>
                 </div>
-                <div class="movie-info-right">
+                <div class="movie-info-right" style="border-color: ${this.getRatingColor(rating)};">
                     <h5 class="color-white">${rating}<h5>
                 </div>
             </div>
@@ -93,6 +93,16 @@ class UI{
         document.body.style.overflow ='hidden';
     }
 
+    //Return colour value between red and green depending on user rating percentage
+    getRatingColor(rating){
+        //Colour mapping to percentage taken from: https://stackoverflow.com/a/17267684
+        let a = rating / 100,
+        b = (120 - 0) * a,
+        c = b + 0;
+        return 'hsl('+c+', 100%, 50%)';
+    }
+
+    //Open Trailer in new tab
     openTrailer(trailer){
         window.open(trailer);
     }
